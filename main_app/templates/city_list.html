@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for city in citys %}
+<h1>{{city.name}} - City </h1>
+<h3>{{city.population}} - population</h3>
+{% endfor %}
+{% endblock %}

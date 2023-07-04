@@ -1,0 +1,41 @@
+{% extends 'base.html' %} 
+{% block content %}
+<button class="button is-primary"><a href="{% url 'favorite_create' %}">Add Favorite</a></button>
+<div class="home__playlists">
+    {% for favorite in favorites %}
+
+        <div class="playlist mb-5">
+            <div class="favorite">
+                    <h3 class="title has-text-success">{{favorite.title}}</h3>
+                    <a href="{% url 'favorite_delete' favorite.pk %}" class="button is-danger">
+                        <span class="icon">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+             </div>
+            <hr />
+     
+            {% for city in favorite.citys.all %}
+
+                <div class="song">
+                    <span>{{forloop.counter}}</span>
+                    <span><b>{{city.name}}</b></span>
+                    <span>{{city.get_population}}</span>
+                    <span>
+                        <!--   Here we are creating an anchor tag that when clicked will hit our new route and send a query to remove the song     -->
+                        <a href="{% url 'favorite_city_assoc' favorite.pk city.pk %}?assoc=remove"
+                           class="button is-danger is-outlined">
+                            <span class="icon is-small">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </a>
+                    </span>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% empty %} 
+        <div class="playlist mb-5">"There are no city in this save list"</div>
+    {% endfor %}
+</div>
+{% endblock %}
